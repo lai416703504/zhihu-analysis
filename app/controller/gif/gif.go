@@ -116,8 +116,12 @@ func DownloadGif(c *gin.Context) {
 				continue
 			}
 
+			if row[2] == "https://www.soogif.com/images/img/img-home-page/default.png" {
+				continue
+			}
+
 			dir := downloadDir + strings.Replace(row[3], "#", "", 1)
-			gifFilename := dir + "/" + row[4] + "_" + row[0] + ".gif"
+			gifFilename := dir + "/" + row[4] + "_" + strings.Replace(row[0], "\"", "", -1) + ".gif"
 
 			response, err := http.Get(row[2])
 
@@ -147,7 +151,7 @@ func DownloadGif(c *gin.Context) {
 				panic(err)
 			}
 			// row[3] //label
-			//src
+			// row[2] //src
 			// row[0] //title
 			// row[4] //rng
 
